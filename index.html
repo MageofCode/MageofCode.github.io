@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caliburn Linux® — Easy. Private. Free.</title>
+<meta name="description" content="Tired of Windows spying on you? Caliburn Linux is a beginner-friendly, private operating system. Free forever. No accounts. No tracking. Easy to install.">
+<meta name="keywords" content="private linux for beginners, how to stop windows from spying, linux that looks like windows, replace windows privacy, chromeos flex alternative privacy, linux easy install">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1e1e2e;
+    --sidebar: #181825;
+    --surface: #24273a;
+    --surface2: #313244;
+    --text: #cdd6f4;
+    --dim: #6c7086;
+    --accent: #89b4fa;
+    --purple: #c9b4fa;
+    --sandy: #b5a280;
+    --title-bg: #300a38;
+    --danger: #f38ba8;
+    --green: #a6e3a1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    background: rgba(24, 24, 37, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(181, 162, 128, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--sandy);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav ul a {
+    color: var(--dim);
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--sandy); }
+
+  .nav-cta {
+    background: var(--title-bg);
+    color: var(--sandy) !important;
+    padding: 0.4rem 1.2rem;
+    border: 1px solid rgba(181,162,128,0.3);
+    border-radius: 2px;
+    transition: background 0.2s, border-color 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: #450f52 !important;
+    border-color: var(--sandy) !important;
+    color: var(--sandy) !important;
+  }
+
+  /* ── PAGE SECTIONS ── */
+  .page { min-height: 100vh; }
+
+  section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 64px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(48,10,56,0.8) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(137,180,250,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 30% at 20% 70%, rgba(201,180,250,0.05) 0%, transparent 60%);
+  }
+
+  /* Stars */
+  .stars {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--min-op, 0.1); }
+    50% { opacity: var(--max-op, 0.7); }
+  }
+
+  .hero-content {
+    position: relative;
+    text-align: center;
+    max-width: 800px;
+    animation: heroFadeIn 1.2s ease both;
+  }
+
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-sword {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    animation: swordFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes swordFloat {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(-5deg); }
+  }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--sandy);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    text-shadow: 0 0 60px rgba(181,162,128,0.3);
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--dim);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 1rem 0 2rem;
+  }
+
+  .hero-pitch {
+    font-size: 1.35rem;
+    color: var(--text);
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  .hero-pitch strong {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--title-bg);
+    color: var(--sandy);
+    border: 1px solid rgba(181,162,128,0.4);
+    padding: 0.9rem 2.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: #450f52;
+    border-color: var(--sandy);
+    box-shadow: 0 0 30px rgba(181,162,128,0.2);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid rgba(137,180,250,0.3);
+    padding: 0.9rem 2.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: inline-block;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(137,180,250,0.05);
+    transform: translateY(-2px);
+  }
+
+  /* ── SCROLL INDICATOR ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--dim);
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+    cursor: pointer;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+    50% { transform: translateX(-50%) translateY(-6px); opacity: 1; }
+  }
+
+  /* ── SECTION HEADINGS ── */
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--sandy);
+    margin-bottom: 0.75rem;
+    opacity: 0.8;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 .accent { color: var(--accent); }
+  h2 .sandy { color: var(--sandy); }
+
+  h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--sandy);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(181,162,128,0.15);
+    margin: 0;
+  }
+
+  /* ── PROBLEM SECTION ── */
+  #problem {
+    background: var(--sidebar);
+  }
+
+  #problem section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .problem-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .problem-list li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.1rem 1.3rem;
+    background: var(--surface);
+    border-radius: 4px;
+    border-left: 3px solid var(--danger);
+    font-size: 1.05rem;
+    animation: slideIn 0.6s ease both;
+  }
+
+  .problem-list li:nth-child(1) { animation-delay: 0.1s; }
+  .problem-list li:nth-child(2) { animation-delay: 0.2s; }
+  .problem-list li:nth-child(3) { animation-delay: 0.3s; }
+  .problem-list li:nth-child(4) { animation-delay: 0.4s; }
+  .problem-list li:nth-child(5) { animation-delay: 0.5s; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .problem-list .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ── WHY SECTION ── */
+  #why { background: var(--bg); }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
+
+  .comparison-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 1.2rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(181,162,128,0.2);
+  }
+
+  .comparison-table th:first-child { color: var(--dim); }
+  .comparison-table th:nth-child(2) { color: var(--danger); }
+  .comparison-table th:nth-child(3) { color: #f5a742; }
+  .comparison-table th:nth-child(4) { color: var(--green); }
+
+  .comparison-table td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+
+  .comparison-table tr:hover td {
+    background: rgba(137,180,250,0.03);
+  }
+
+  .comparison-table td:first-child {
+    color: var(--dim);
+    font-size: 0.95rem;
+  }
+
+  .check { color: var(--green); font-size: 1.1rem; }
+  .cross { color: var(--danger); font-size: 1.1rem; }
+  .warn { color: #f5a742; font-size: 1.1rem; }
+  .caliburn-col { color: var(--accent); font-weight: 600; }
+
+  /* ── IS THIS FOR ME ── */
+  #for-me { background: var(--sidebar); }
+
+  .quiz-container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .quiz-intro {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--dim);
+    font-style: italic;
+    font-size: 1.1rem;
+  }
+
+  .quiz-question {
+    background: var(--surface);
+    border: 1px solid rgba(181,162,128,0.1);
+    border-radius: 6px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .quiz-question:hover {
+    border-color: rgba(137,180,250,0.3);
+    background: var(--surface2);
+  }
+
+  .quiz-question.selected {
+    border-color: var(--accent);
+    background: rgba(137,180,250,0.08);
+  }
+
+  .quiz-question .q-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  .quiz-result {
+    display: none;
+    text-align: center;
+    padding: 2.5rem;
+    background: var(--surface);
+    border-radius: 6px;
+    border: 1px solid rgba(166,227,161,0.3);
+    margin-top: 2rem;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .quiz-result.show { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .quiz-result .result-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
+  .quiz-result h3 { color: var(--green); font-size: 1.4rem; margin-bottom: 0.8rem; }
+  .quiz-result p { color: var(--text); font-style: italic; }
+
+  .quiz-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--title-bg);
+    color: var(--sandy);
+    border: 1px solid rgba(181,162,128,0.3);
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  .quiz-btn:hover { background: #450f52; border-color: var(--sandy); }
+
+  /* ── INSTALL ── */
+  #install { background: var(--bg); }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    counter-reset: steps;
+    position: relative;
+    max-width: 700px;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 3rem;
+    bottom: 3rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--sandy), transparent);
+    opacity: 0.3;
+  }
+
+  .step {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+    counter-increment: steps;
+    position: relative;
+  }
+
+  .step-num {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--title-bg);
+    border: 1px solid rgba(181,162,128,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--sandy);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .step-content { flex: 1; padding-top: 0.4rem; }
+
+  .step-content p {
+    color: var(--dim);
+    font-size: 1rem;
+    margin-top: 0.3rem;
+  }
+
+  .code-block {
+    background: var(--sidebar);
+    border: 1px solid rgba(137,180,250,0.15);
+    border-radius: 4px;
+    padding: 0.8rem 1.2rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-top: 0.8rem;
+    overflow-x: auto;
+  }
+
+  /* ── FAQ ── */
+  #faq { background: var(--sidebar); }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid rgba(181,162,128,0.08);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item:hover { border-color: rgba(137,180,250,0.2); }
+
+  .faq-item h3 {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+  }
+
+  .faq-item p {
+    color: var(--dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--sidebar);
+    border-top: 1px solid rgba(181,162,128,0.1);
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--dim);
+    font-size: 0.95rem;
+  }
+
+  footer .footer-logo {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--sandy);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  footer .footer-tagline {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--dim);
+    font-size: 1rem;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    #problem section { grid-template-columns: 1fr; gap: 3rem; }
+    .comparison-table { font-size: 0.85rem; }
+    .comparison-table th, .comparison-table td { padding: 0.7rem 0.6rem; }
+    .faq-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 2.5rem; }
+  }
+
+  /* ── FADE ON SCROLL ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">CALIBURN<span>.</span></a>
+  <ul>
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#why">Why Caliburn</a></li>
+    <li><a href="#for-me">Is This For Me?</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#install" class="nav-cta">Download</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="home" class="page">
+  <div class="hero-bg"></div>
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <div class="hero-content">
+    <span class="hero-sword">🗡️</span>
+    <h1>Your Computer.<br><em>Your Rules.</em></h1>
+    <p class="tagline">Easy · Private · Free</p>
+    <p class="hero-pitch">
+      Windows watches everything you do and sells it.<br>
+      <strong>Caliburn Linux doesn't.</strong> And it's easier to install than you think.
+    </p>
+    <div class="btn-group">
+      <a href="#install" class="btn-primary">Download Caliburn</a>
+      <a href="#for-me" class="btn-secondary">Is This For Me?</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint" onclick="document.getElementById('problem').scrollIntoView({behavior:'smooth'})">
+    ↓ &nbsp; scroll
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PROBLEM -->
+<div id="problem">
+  <section>
+    <div class="fade-up">
+      <p class="section-label">The Problem</p>
+      <h2>Windows is <span class="accent">watching</span> you right now</h2>
+      <p style="color:var(--dim); margin-bottom:1.5rem; font-style:italic;">
+        This isn't paranoia. It's in the terms of service you agreed to.
+      </p>
+      <p style="color:var(--text); font-size:1.05rem;">
+        Every time you search, type, or browse on Windows, that data goes to Microsoft's servers.
+        They use it to build a profile on you and sell access to advertisers.
+        You paid for that computer. You shouldn't be the product too.
+      </p>
+    </div>
+    <ul class="problem-list fade-up">
+      <li><span class="icon">👁️</span> Windows 11 logs your typing, searches, and location by default</li>
+      <li><span class="icon">📊</span> Telemetry sends your usage data to Microsoft continuously</li>
+      <li><span class="icon">💸</span> Your habits are sold to advertisers — you're the product</li>
+      <li><span class="icon">🔒</span> ChromeOS Flex solves nothing — Google is worse than Microsoft</li>
+      <li><span class="icon">📋</span> Incoming laws may require your OS to collect your birthdate by 2027</li>
+    </ul>
+  </section>
+</div>
+
+<hr class="divider">
+
+<!-- WHY CALIBURN -->
+<div id="why">
+  <section class="fade-up">
+    <p class="section-label">Why Caliburn</p>
+    <h2>How Caliburn compares to the <span class="sandy">alternatives</span></h2>
+    <p style="color:var(--dim); font-style:italic; margin-bottom:0.5rem;">
+      An honest comparison. No marketing spin.
+    </p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Windows 11</th>
+          <th>ChromeOS Flex</th>
+          <th>Caliburn Linux</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tracks your activity</td>
+          <td><span class="cross">✗</span> Always</td>
+          <td><span class="cross">✗</span> Always</td>
+          <td><span class="check caliburn-col">✓</span> Never</td>
+        </tr>
+        <tr>
+          <td>Requires an account to use</td>
+          <td><span class="cross">✗</span> Yes</td>
+          <td><span class="cross">✗</span> Yes</td>
+          <td><span class="check caliburn-col">✓</span> No</td>
+        </tr>
+        <tr>
+          <td>Works without internet</td>
+          <td><span class="warn">~</span> Mostly</td>
+          <td><span class="cross">✗</span> Barely</td>
+          <td><span class="check caliburn-col">✓</span> Fully</td>
+        </tr>
+        <tr>
+          <td>Free forever</td>
+          <td><span class="cross">✗</span> No</td>
+          <td><span class="warn">~</span> Kinda</td>
+          <td><span class="check caliburn-col">✓</span> Yes</td>
+        </tr>
+        <tr>
+          <td>Works on old hardware</td>
+          <td><span class="cross">✗</span> No (TPM 2.0)</td>
+          <td><span class="warn">~</span> Better</td>
+          <td><span class="check caliburn-col">✓</span> Yes</td>
+        </tr>
+        <tr>
+          <td>Parental controls (local, no cloud)</td>
+          <td><span class="cross">✗</span> Cloud-based</td>
+          <td><span class="cross">✗</span> Google-based</td>
+          <td><span class="check caliburn-col">✓</span> Built in</td>
+        </tr>
+        <tr>
+          <td>Safe from age-verification laws (2027)</td>
+          <td><span class="cross">✗</span> Vulnerable</td>
+          <td><span class="cross">✗</span> Vulnerable</td>
+          <td><span class="check caliburn-col">✓</span> Structurally immune</td>
+        </tr>
+        <tr>
+          <td>Open source — nothing hidden</td>
+          <td><span class="cross">✗</span> No</td>
+          <td><span class="cross">✗</span> No</td>
+          <td><span class="check caliburn-col">✓</span> Fully</td>
+        </tr>
+        <tr>
+          <td>Easy install from Windows</td>
+          <td>—</td>
+          <td><span class="warn">~</span> USB kit</td>
+          <td><span class="check caliburn-col">✓</span> .exe installer</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<hr class="divider">
+
+<!-- IS THIS FOR ME -->
+<div id="for-me">
+  <section>
+    <div class="fade-up" style="text-align:center; margin-bottom:3rem;">
+      <p class="section-label">Is This For Me?</p>
+      <h2>Check the boxes that <span class="accent">sound like you</span></h2>
+    </div>
+
+    <div class="quiz-container fade-up">
+      <p class="quiz-intro">Tap anything that applies. You don't need all of them.</p>
+
+      <div class="quiz-question" onclick="toggleQ(this)">
+        <span class="q-icon">😤</span>
+        <span>I'm tired of Windows updates breaking things and slowing my computer down</span>
+      </div>
+      <div class="quiz-question" onclick="toggleQ(this)">
+        <span class="q-icon">🕵️</span>
+        <span>I don't like the idea of Microsoft reading my searches and emails</span>
+      </div>
+      <div class="quiz-question" onclick="toggleQ(this)">
+        <span class="q-icon">💻</span>
+        <span>I have an old computer that Windows 11 won't install on</span>
+      </div>
+      <div class="quiz-question" onclick="toggleQ(this)">
+        <span class="q-icon">🧒</span>
+        <span>I want parental controls that don't rely on a company's cloud</span>
+      </div>
+      <div class="quiz-question" onclick="toggleQ(this)">
+        <span class="q-icon">💰</span>
+        <span>I don't want to pay for software just to use my computer normally</span>
+      </div>
+      <div class="quiz-question" onclick="toggleQ(this)">
+        <span class="q-icon">🌐</span>
+        <span>I use my computer mostly for browsing, email, documents, and YouTube</span>
+      </div>
+
+      <button class="quiz-btn" onclick="showResult()">See My Result →</button>
+
+      <div class="quiz-result" id="quiz-result">
+        <span class="result-icon">🗡️</span>
+        <h3>Caliburn was made for you.</h3>
+        <p>
+          You don't need to be a programmer. You don't need to know what Linux is.
+          Caliburn is designed from the ground up for people exactly like you —
+          who just want their computer to work, privately, without being watched.
+        </p>
+        <a href="#install" class="btn-primary" style="display:inline-block; margin-top:1.5rem;">
+          Let's Get Started
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<hr class="divider">
+
+<!-- INSTALL -->
+<div id="install">
+  <section class="fade-up">
+    <p class="section-label">Installation</p>
+    <h2>From Windows to <span class="sandy">Caliburn</span> in four steps</h2>
+    <p style="color:var(--dim); font-style:italic; margin-bottom:3rem;">
+      No USB drives. No command lines. No scary menus. Just a normal installer.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Download the installer</h3>
+          <p>Click the download button below. It's a normal Windows .exe file, about 2GB.</p>
+          <a href="#" class="btn-primary" style="display:inline-block; margin-top:1rem; font-size:0.8rem;">
+            Download caliburn-install.exe
+          </a>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Run it like any program</h3>
+          <p>Double-click the file. Windows will ask "Do you want to allow this app to make changes?" — click Yes. This is normal.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Follow the wizard</h3>
+          <p>Choose your options — which desktop, which apps. The installer handles the rest. Then it tells you to restart.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Restart — you're done</h3>
+          <p>Your computer restarts into Caliburn Linux. No Windows required. Everything is set up and ready to use.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem; padding:1.5rem; background:var(--surface); border-radius:6px; border-left:3px solid var(--accent);">
+      <h3 style="margin-bottom:0.5rem; color:var(--accent);">Prefer the USB method?</h3>
+      <p style="color:var(--dim); font-size:1rem;">
+        Download the ISO and flash it to a USB drive with
+        <a href="https://etcher.balena.io" target="_blank" style="color:var(--accent);">Balena Etcher</a>.
+        Boot from USB and the installer will guide you through.
+      </p>
+    </div>
+  </section>
+</div>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<div id="faq">
+  <section class="fade-up">
+    <p class="section-label">FAQ</p>
+    <h2>Questions people actually <span class="accent">ask</span></h2>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3>Will my files be deleted?</h3>
+        <p>The installer will ask you before touching anything. You can keep your files, or start fresh — your choice.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I still use my printer / webcam / headphones?</h3>
+        <p>Most hardware works out of the box. Caliburn ships with drivers for the vast majority of common devices.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What about Microsoft Office?</h3>
+        <p>LibreOffice is included — it opens Word, Excel, and PowerPoint files. For browser-based Office, that still works fine too.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I still watch YouTube and Netflix?</h3>
+        <p>Yes. Librewolf (our default browser) handles both. Multimedia codecs are included in the installer.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is it really free? What's the catch?</h3>
+        <p>No catch. Caliburn is open source software built by volunteers. We don't sell your data because that's the whole point.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What if something goes wrong?</h3>
+        <p>The community forum is the right place for help. Most common questions have answers already waiting for you.</p>
+      </div>
+      <div class="faq-item">
+        <h3>I'm not technical. Can I really do this?</h3>
+        <p>Yes. That's who Caliburn was built for. If you can install a program on Windows, you can install Caliburn.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does Caliburn phone home or collect data?</h3>
+        <p>Never. No telemetry. No accounts required. No data leaves your computer unless you send it yourself.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">CALIBURN LINUX</div>
+  <div class="footer-tagline">Easy. Private. Free.</div>
+  <p style="margin-bottom:0.5rem;">
+    Built on <a href="https://devuan.org" target="_blank">Devuan GNU/Linux</a> —
+    Open source, no systemd, no tracking.
+  </p>
+  <p style="font-size:0.85rem; color:var(--surface2); margin-top:1rem;">
+    © 2026 Caliburn Linux Project — GPL v3 — 
+    <a href="#">Source Code</a> · 
+    <a href="#">Community</a>
+  </p>
+  <p style="font-size:0.78rem; color:var(--surface2); margin-top:0.5rem;">
+    Linux® is used pursuant to a sublicense from the Linux Foundation, the exclusive licensee of Linus Torvalds, owner of the mark on a worldwide basis.
+  </p>
+</footer>
+
+<script>
+  // Generate stars
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      --d: ${2 + Math.random() * 4}s;
+      --delay: ${Math.random() * 4}s;
+      --min-op: ${0.05 + Math.random() * 0.1};
+      --max-op: ${0.4 + Math.random() * 0.6};
+    `;
+    starsEl.appendChild(star);
+  }
+
+  // Fade on scroll
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Quiz
+  function toggleQ(el) {
+    el.classList.toggle('selected');
+  }
+
+  function showResult() {
+    const selected = document.querySelectorAll('.quiz-question.selected').length;
+    const result = document.getElementById('quiz-result');
+    if (selected === 0) {
+      result.innerHTML = `
+        <span class="result-icon">🤔</span>
+        <h3 style="color:var(--sandy)">Maybe check a box or two?</h3>
+        <p>Pick anything that sounds like you — even one is enough.</p>
+      `;
+    } else {
+      result.innerHTML = `
+        <span class="result-icon">🗡️</span>
+        <h3>Caliburn was made for you.</h3>
+        <p>You don't need to be a programmer. Caliburn is designed from the ground up for people exactly like you — who just want their computer to work, privately, without being watched.</p>
+        <a href="#install" class="btn-primary" style="display:inline-block; margin-top:1.5rem;">Let's Get Started</a>
+      `;
+    }
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Smooth nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = 64;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
